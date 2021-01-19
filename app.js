@@ -7,15 +7,25 @@ const todoList = document.querySelector('.todo-list');
 
 //Event Listners
 todoButton.addEventListener('click', addTodo);
-
+todoList.addEventListener('click', deleteAndCheck);
 //Functions
+
+function deleteAndCheck(event){
+    const item = event.target;
+
+    // delete item
+    if(item.classList[0] === 'trash-btn'){
+        item.parentElement.remove();
+    }
+}
+
 function addTodo(event){
     event.preventDefault(); // can stop default behavior from button click i.e. refreshing page on submit
     
     // div wrapper for element 
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
-    
+
     // creates li element for a list item
     const newTodo = document.createElement('li');
     newTodo.innerText = todoInput.value;
