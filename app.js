@@ -3,19 +3,53 @@
 const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
-
+const filterOption = document.querySelector('.filter-todo');
 
 //Event Listners
 todoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteAndCheck);
+filterOption.addEventListener('change', filterTodo);
+
 //Functions
+
+function filterTodo(event){
+
+    // we  use Array.from to convert the HtmlCollection to an array so we can call foreach on it
+    const todos = Array.from(todoList.children);
+    todos.forEach(function(todo){
+        switch(event.target.value){
+            case "all":
+                todo.style.display = 'flex';
+                break;
+            case "complete":
+                if(todo.classList.contains('completed')){
+                    todo.style.display = 'flex';
+                } else {
+                    todo.style.display = 'none';
+                }
+                break;
+            case "incomplete":
+                if(todo.classList.contains('completed')){
+                    todo.style.display = 'none';
+                } else {
+                    todo.style.display = 'flex';
+                }
+                break;
+        }
+    });
+
+}
 
 function deleteAndCheck(event){
     const item = event.target;
 
     // delete item
     if(item.classList[0] === 'trash-btn'){
-        item.parentElement.remove();
+        item.parentElement.classList.add('fall');
+        item.parentElement.addEventListener('transitionend', function(){
+            item.parentElement.remove();
+        });
+        
     }
 
     // check as complete
