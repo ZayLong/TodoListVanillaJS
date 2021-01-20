@@ -17,7 +17,12 @@ function deleteAndCheck(event){
     if(item.classList[0] === 'trash-btn'){
         item.parentElement.remove();
     }
-}
+
+    // check as complete
+    if(item.classList[0] === "complete-btn"){
+        item.parentElement.classList.toggle('completed');
+    }
+}  
 
 function addTodo(event){
     event.preventDefault(); // can stop default behavior from button click i.e. refreshing page on submit
